@@ -1,6 +1,7 @@
 import React from 'react';
 import {Navbar, Form, Col, Button, ListGroup, Row } from 'react-bootstrap'
 import ModalList from './ModalListMenu';
+import firebase from '../../firebase';
 
 class Listmenu extends React.Component {
 
@@ -10,7 +11,39 @@ class Listmenu extends React.Component {
         menu : '',
         jumlah : 1,
         showedit : false,
-        
+        menus : [],
+        menus2 : []
+    }
+
+
+    async componentDidMount(){
+        this.getMenus()
+        this.getMenus2()
+    }
+
+    getMenus = () => {
+        const ref = firebase.firestore().collection("menuMakanan");
+        ref.onSnapshot((querySnapshot)=> {
+            const items = [];
+            querySnapshot.forEach((doc)=> {
+                items.push(doc.data());
+            });
+            this.setState({
+                menus : items
+            })
+        })
+    }
+    getMenus2 = () => {
+        const ref = firebase.firestore().collection("menuMinuman");
+        ref.onSnapshot((querySnapshot)=> {
+            const items = [];
+            querySnapshot.forEach((doc)=> {
+                items.push(doc.data());
+            });
+            this.setState({
+                menus2 : items
+            })
+        })
     }
 
     handleMenuChange = (e) => {
@@ -105,6 +138,8 @@ class Listmenu extends React.Component {
                         jumlahChange={this.handleJumlahChange}
                         menu={this.state.menu}
                         jumlah={this.state.jumlah}
+                        listmenu={this.state.menus}
+                        listmenu2={this.state.menus2}
                     />
                 </div>
                 <div style={{padding : 40}}>

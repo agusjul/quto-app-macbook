@@ -30,49 +30,41 @@ class ModalList extends React.Component {
                     <Modal.Body >
                         <Form.Group as={Col} md="12" style={{marginBottom : 0}}>
                             <Form.Label>Pilih Menu</Form.Label>
-                            <div style={{height : 250, overflowY : 'scroll', display : 'flex', flexWrap : 'wrap'}}> 
-                                
-                                <Card onClick={()=>this.selectMenu()} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.state.selected ? "#6495ED" : ""}` }}>
-                                    <Card.Img variant="top" src={gambar} style={{width : '100%', height : '6rem'}}/>
-                                    <Card.Body style={{padding : 10}}>
-                                        <Card.Text style={{margin : 0}}>
-                                            <p style={{margin : 0}}>Pasta <br/>
-                                            Rp.20000
-                                            </p>
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                                <Card onClick={()=>this.selectMenu()} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.state.selected ? "#6495ED" : ""}` }}>
-                                    <Card.Img variant="top" src={gambar1} style={{width : '100%', height : '6rem'}}/>
-                                    <Card.Body style={{padding : 10}}>
-                                        <Card.Text style={{margin : 0}}>
-                                            <p style={{margin : 0}}>Pasta <br/>
-                                            Rp.20000
-                                            </p>
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                                <Card onClick={()=>this.selectMenu()} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.state.selected ? "#6495ED" : ""}` }}>
-                                    <Card.Img variant="top" src={gambar} style={{width : '100%', height : '6rem'}}/>
-                                    <Card.Body style={{padding : 10}}>
-                                        <Card.Text style={{margin : 0}}>
-                                            <p style={{margin : 0}}>Pasta <br/>
-                                            Rp.20000
-                                            </p>
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card> <Card onClick={()=>this.selectMenu()} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.state.selected ? "#6495ED" : ""}` }}>
-                                    <Card.Img variant="top" src={gambar} style={{width : '100%', height : '6rem'}}/>
-                                    <Card.Body style={{padding : 10}}>
-                                        <Card.Text style={{margin : 0}}>
-                                            <p style={{margin : 0}}>Pasta <br/>
-                                            Rp.20000
-                                            </p>
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                                
-                                
+                            <div style={{height : 250, overflowY : 'scroll'}}> 
+                                <div>
+                                    <p style={{fontWeight : 'bold'}}>Makanan</p>
+                                </div>
+                                <div style={{display : 'flex', flexWrap : 'wrap'}}>
+                                    {this.props.listmenu.map((menus, index)=>
+                                        <Card key={index} onClick={()=>this.selectMenu()} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.state.selected ? "#6495ED" : ""}` }}>
+                                            <Card.Img variant="top" src={menus.gambar} style={{width : '100%', height : '6rem'}}/>
+                                            <Card.Body style={{padding : 10}}>
+                                                <Card.Text style={{margin : 0}}>
+                                                    <p style={{margin : 0}}>{menus.nama}<br/>
+                                                    {menus.harga}
+                                                    </p>
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    )}
+                                </div>
+                                <div>
+                                    <p style={{fontWeight : 'bold'}}>Minuman</p>
+                                </div>
+                                <div style={{display : 'flex', flexWrap : 'wrap'}}>
+                                    {this.props.listmenu2.map((menus, index)=>
+                                        <Card key={index} onClick={()=>this.selectMenu()} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.state.selected ? "#6495ED" : ""}` }}>
+                                            <Card.Img variant="top" src={menus.gambar} style={{width : '100%', height : '6rem'}}/>
+                                            <Card.Body style={{padding : 10}}>
+                                                <Card.Text style={{margin : 0}}>
+                                                    <p style={{margin : 0}}>{menus.nama}<br/>
+                                                    {menus.harga}
+                                                    </p>
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    )}
+                                </div>
                             </div>
                         </Form.Group>
                         

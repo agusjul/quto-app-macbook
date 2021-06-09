@@ -19,12 +19,6 @@ class App extends React.Component {
     })
   }
 
-  componentDidMount(){
-    const ref = firebase.firestore().collection("users");
-    ref.onSnapshot((querysnapShot)=>
-    console.log(querysnapShot.docs)
-    )
-  }
 
   render(){
     return(
