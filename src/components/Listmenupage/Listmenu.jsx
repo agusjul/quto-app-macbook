@@ -15,7 +15,7 @@ class Listmenu extends React.Component {
 
     handleMenuChange = (e) => {
         this.setState({
-            menu : e.target.value
+            menu : e
         })
     }
 

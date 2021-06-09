@@ -14,7 +14,7 @@ class ModalList extends React.Component {
                 keyboard={false}
                 >
                     <Modal.Header>
-                        <Modal.Title>Tambah Pesanan</Modal.Title>
+                        <Modal.Title>Edit Pesanan</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Group as={Col} md="12">
