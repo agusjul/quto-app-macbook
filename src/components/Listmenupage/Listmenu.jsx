@@ -2,6 +2,7 @@ import React from 'react';
 import {Navbar, Form, Col, Button, ListGroup, Row } from 'react-bootstrap'
 import ModalList from './ModalListMenu';
 import firebase from '../../firebase';
+import EditMenu from './EditModalMenu';
 
 class Listmenu extends React.Component {
 
@@ -12,7 +13,11 @@ class Listmenu extends React.Component {
         jumlah : 1,
         showedit : false,
         menus : [],
-        menus2 : []
+        menus2 : [],
+        selected : {},
+        edit : {},
+        arrayindex : 0,
+        jumlahedit : 1
     }
 
 
@@ -64,34 +69,52 @@ class Listmenu extends React.Component {
         })
     }
 
+    handleShowEdit = () => {
+        this.setState({
+            showedit : true
+        })
+    }
+
     handleClose = () => {
         this.setState({
-            show : false
+            show : false,
+            selected : {}
+        })
+    }
+
+    handleCloseEdit = () => {
+        this.setState({
+            showedit : false,
         })
     }
 
     addMenu = () => {
         const oldData = this.state.listmenu
         const Data = {}
-        Data.menu = this.state.menu
+        Data.menu = this.state.selected.nama
+        Data.harga = this.state.selected.harga
+        Data.gambar = this.state.selected.gambar
         Data.jumlah = this.state.jumlah
-        oldData.push({Data})
+        oldData.push(Data)
 
         this.setState({
             listmenu : oldData,
             show :  false,
-            menu : '',
+            selected : {},
             jumlah : 1
         })
 
         console.log(this.state.listmenu)
     }
 
-    editMenu = (e) => {
+    editMenuModal = (e, index) => {
         this.setState({
-            menu : e.menu,
-            jumlah : e.jumlah,
-            show : true
+            edit : e,
+            arrayindex : index
+        })
+        console.log(this.state.edit)
+        this.setState({
+            showedit : true
         })
     }
 
@@ -99,11 +122,27 @@ class Listmenu extends React.Component {
         if(this.state.listmenu.length > 0){
             return (
                 <ListGroup variant="flush">
-                    {this.state.listmenu.map((data, index) =>
-                        <ListGroup.Item key={index} onClick={()=>this.editMenu(data.Data)}>
+                    <ListGroup.Item style={{paddingLeft : 0}}>
                             <Row style={{cursor : 'pointer'}}>
-                                <Col xs={4}> {data.Data.menu}</Col>
-                                <Col xs={1}>{data.Data.jumlah}</Col>
+                                <Col xs={8}>
+                                    <p style={{fontWeight : 'bold'}}>Nama menu</p>
+                                </Col>
+                                <Col xs={2}>
+                                    <p style={{fontWeight : 'bold'}}>Jumlah</p>
+                                </Col>
+                                <Col xs={2}>
+                                    <p style={{fontWeight : 'bold'}}>
+                                        Harga
+                                    </p>
+                                </Col>
+                            </Row>
+                        </ListGroup.Item>
+                    {this.state.listmenu.map((data, index) =>
+                        <ListGroup.Item key={index} onClick={()=>this.editMenuModal(data, index)} style={{paddingLeft : 0}}>
+                            <Row style={{cursor : 'pointer'}}>
+                                <Col xs={8}> {data.menu}</Col>
+                                <Col xs={2}>{data.jumlah}</Col>
+                                <Col xs={2}>{(data.harga)}</Col>
                             </Row>
                         </ListGroup.Item>
                     )}
@@ -118,6 +157,39 @@ class Listmenu extends React.Component {
         }
     }
 
+    selectMenu = (e) => {
+        this.setState({
+            selected : e
+        })
+        console.log(e)
+    }
+
+    cssSelect = (e) => {
+        if (this.state.selected.nama === e){
+            return '#6495ED'
+        } else {
+            return ""
+        }
+    }
+
+    editModalJumlahChange = (e) => {
+        const datas = this.state.edit
+        datas.jumlah = e.target.value
+        this.setState({
+            edit : datas
+        })
+        console.log('edited jumlah = ',this.state.edit)
+    }
+
+    simpanEdit = () => {
+        this.state.listmenu.slice(this.state.arrayindex-1, this.state.arrayindex, this.state.edit)
+        console.log("update data = ", this.state.listmenu)
+        this.setState({
+            showedit : false
+        })
+    }
+
+
     render() {
         return(
             <div>
@@ -128,22 +200,36 @@ class Listmenu extends React.Component {
                     </Navbar>
                 </div>
                 <div style={{padding : 40}}>
+                    <div style={{marginBottom : 40}}>
+                        {this.mapListMenu()}
+                    </div>
+                    <div style={{display : 'flex', justifyContent : 'space-around'}}>
+                        <ModalList  
+                            tampil={this.state.show} 
+                            tampilkan={this.handleShow} 
+                            hide={this.handleClose} 
+                            tambahMenu={this.addMenu}
+                            menuChange={this.handleMenuChange}
+                            jumlahChange={this.handleJumlahChange}
+                            menu={this.state.menu}
+                            jumlah={this.state.jumlah}
+                            listmenu={this.state.menus}
+                            listmenu2={this.state.menus2}
+                            selectMenu = {this.selectMenu}
+                            cssSelect = {this.cssSelect}
+                        />
                     
-                    <ModalList  
-                        tampil={this.state.show} 
-                        tampilkan={this.handleShow} 
-                        hide={this.handleClose} 
-                        tambahMenu={this.addMenu}
-                        menuChange={this.handleMenuChange}
-                        jumlahChange={this.handleJumlahChange}
-                        menu={this.state.menu}
-                        jumlah={this.state.jumlah}
-                        listmenu={this.state.menus}
-                        listmenu2={this.state.menus2}
-                    />
-                </div>
-                <div style={{padding : 40}}>
-                    {this.mapListMenu()}
+                        <EditMenu
+                            data={this.state.edit}
+                            tampil={this.state.showedit}
+                            tampilkan={this.handleShowEdit}
+                            hide={this.handleCloseEdit}
+                            index = {this.state.arrayindex}
+                            gantiJumlah = {this.editModalJumlahChange}
+                            simpanEdit = {this.simpanEdit}
+                        />
+                        <Button variant="primary">Pesan Sekarang</Button>
+                    </div>
                 </div>
             </div>
         )

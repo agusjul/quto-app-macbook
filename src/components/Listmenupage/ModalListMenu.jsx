@@ -4,16 +4,7 @@ import gambar from '../../image/gambar1.jpeg'
 import gambar1 from '../../image/sopikan.jpeg'
 
 class ModalList extends React.Component {
-    state = {
-        selected : false
-    }
-
-    selectMenu = () => {
-        this.setState({
-            selected : !this.state.selected
-        })
-        this.props.menuChange('Pasta')
-    }
+    
 
     render(){
         return(
@@ -22,7 +13,7 @@ class ModalList extends React.Component {
                 show={this.props.tampil}
                 onHide={this.props.hide}
                 backdrop="static"
-                keyboard={false}
+                keyboard={false}a
                 >
                     <Modal.Header>
                         <Modal.Title>Tambah Pesanan</Modal.Title>
@@ -36,12 +27,15 @@ class ModalList extends React.Component {
                                 </div>
                                 <div style={{display : 'flex', flexWrap : 'wrap'}}>
                                     {this.props.listmenu.map((menus, index)=>
-                                        <Card key={index} onClick={()=>this.selectMenu()} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.state.selected ? "#6495ED" : ""}` }}>
+                                        <Card key={index} onClick={()=>this.props.selectMenu(menus)} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.props.cssSelect(menus.nama)}` }}>
                                             <Card.Img variant="top" src={menus.gambar} style={{width : '100%', height : '6rem'}}/>
                                             <Card.Body style={{padding : 10}}>
                                                 <Card.Text style={{margin : 0}}>
-                                                    <p style={{margin : 0}}>{menus.nama}<br/>
-                                                    {menus.harga}
+                                                    <p style={{margin : 0, fontSize : 12, fontWeight : 'bold'}}>{
+                                                        menus.nama}
+                                                    </p>
+                                                    <p style={{margin : 0, fontSize : 12}}> 
+                                                        {menus.harga}
                                                     </p>
                                                 </Card.Text>
                                             </Card.Body>
@@ -53,12 +47,14 @@ class ModalList extends React.Component {
                                 </div>
                                 <div style={{display : 'flex', flexWrap : 'wrap'}}>
                                     {this.props.listmenu2.map((menus, index)=>
-                                        <Card key={index} onClick={()=>this.selectMenu()} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.state.selected ? "#6495ED" : ""}` }}>
+                                        <Card key={index} onClick={()=>this.props.selectMenu(menus)} style={{ width: '8rem', cursor : 'pointer', marginBottom : 10, marginRight : 10, height : '10rem', borderColor : `${this.props.cssSelect(menus.nama)}` }}>
                                             <Card.Img variant="top" src={menus.gambar} style={{width : '100%', height : '6rem'}}/>
                                             <Card.Body style={{padding : 10}}>
                                                 <Card.Text style={{margin : 0}}>
-                                                    <p style={{margin : 0}}>{menus.nama}<br/>
-                                                    {menus.harga}
+                                                    <p style={{margin : 0, fontSize : 12, fontWeight : 'bold'}}>{menus.nama}
+                                                    </p>
+                                                    <p style={{margin : 0, fontSize : 12}}> 
+                                                        {menus.harga}
                                                     </p>
                                                 </Card.Text>
                                             </Card.Body>
@@ -89,7 +85,7 @@ class ModalList extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                <Button onClick={this.props.tampilkan}>
+                <Button variant="outline-primary" onClick={this.props.tampilkan}>
                     Tambah Pesanan
                 </Button>
             </React.Fragment>
