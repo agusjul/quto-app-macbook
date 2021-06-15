@@ -4,6 +4,8 @@ import ModalList from './ModalListMenu';
 import firebase from '../../firebase';
 import EditMenu from './EditModalMenu';
 
+import { withRouter } from "react-router";
+
 class Listmenu extends React.Component {
 
     state = {
@@ -189,6 +191,27 @@ class Listmenu extends React.Component {
         })
     }
 
+    totalHarga = () => {
+        if(this.state.listmenu.length > 0){
+            let total = 0
+            this.state.listmenu.map((datas, i)=> {
+                total += (datas.harga*datas.jumlah)
+            })
+            return (` - ${total}`)
+        }
+        else {
+            return ''
+        }
+    }
+
+    gotoCheckout = () => {
+        console.log('click')
+        this.props.history.push({
+            pathname: '/checkout',
+            data : this.state.listmenu
+        })
+    }
+
 
     render() {
         return(
@@ -228,7 +251,7 @@ class Listmenu extends React.Component {
                             gantiJumlah = {this.editModalJumlahChange}
                             simpanEdit = {this.simpanEdit}
                         />
-                        <Button variant="primary">Pesan Sekarang</Button>
+                        <Button variant="primary" onClick={this.gotoCheckout}>Pesan Sekarang{`${this.totalHarga()}`}</Button>
                     </div>
                 </div>
             </div>
@@ -236,4 +259,4 @@ class Listmenu extends React.Component {
     }
 }
 
-export default Listmenu;
+export default withRouter(Listmenu);
