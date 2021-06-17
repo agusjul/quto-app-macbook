@@ -85,7 +85,7 @@ class ModalList extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                <Button variant="outline-primary" onClick={this.props.tampilkan}>
+                <Button style={{width : '100%', marginBottom : 20}} variant="outline-primary" onClick={this.props.tampilkan}>
                     Tambah Pesanan
                 </Button>
             </React.Fragment>

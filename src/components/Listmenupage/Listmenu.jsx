@@ -212,6 +212,23 @@ class Listmenu extends React.Component {
         })
     }
 
+    checkoutBottom = () => {
+        if(this.state.listmenu.length > 0){
+            return (
+                <div>
+                    <Button style={{width : '100%'}} variant="primary" onClick={this.gotoCheckout} >
+                        Chekcout{`${this.totalHarga()}`}
+                    </Button>
+                </div>)
+        }else {
+            return (
+            <div>
+                <Button style={{width : '100%'}} variant="primary" onClick={this.gotoCheckout} disabled>Chekcout{`${this.totalHarga()}`}
+                </Button>
+            </div>)
+        }
+    }
+
 
     render() {
         return(
@@ -226,7 +243,7 @@ class Listmenu extends React.Component {
                     <div style={{marginBottom : 40}}>
                         {this.mapListMenu()}
                     </div>
-                    <div style={{display : 'flex', justifyContent : 'space-around'}}>
+                    <div>
                         <ModalList  
                             tampil={this.state.show} 
                             tampilkan={this.handleShow} 
@@ -251,7 +268,10 @@ class Listmenu extends React.Component {
                             gantiJumlah = {this.editModalJumlahChange}
                             simpanEdit = {this.simpanEdit}
                         />
-                        <Button variant="primary" onClick={this.gotoCheckout}>Pesan Sekarang{`${this.totalHarga()}`}</Button>
+                         <Button style={{width : '100%'}} variant="primary" onClick={this.gotoCheckout} >
+                            Chekcout{`${this.totalHarga()}`}
+                        </Button>
+                        {this.checkoutBottom}
                     </div>
                 </div>
             </div>
