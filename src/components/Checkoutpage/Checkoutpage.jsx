@@ -3,6 +3,8 @@ import {Navbar, Form, Col, Button, ListGroup, Row, FormControl, FormGroup, Card 
 import { withRouter } from "react-router";
 import { Prompt } from 'react-router'
 import ModalCheckout from './ModalCheckoutpage';
+import { v4 as uuidv4 } from 'uuid';
+import firebase from '../../firebase';
 
 class Checkoutpage extends React.Component{
     state={
@@ -17,12 +19,31 @@ class Checkoutpage extends React.Component{
         console.log(this.props.location.data)
     }
 
-    gotoHome = () => {
-        if(!this.state.callback){
-            this.props.history.push({
-                pathname: '/',
-            })
+    addPesanan = () => {
+        const pesanan = {
+            id : uuidv4(),
+            data : this.state.data,
+            nama : this.state.nama,
+            meja : this.state.meja
         }
+        firebase.firestore().collection("/pesanan")
+        .doc(pesanan.id).set({
+            id : pesanan.id,
+            data : pesanan.data,
+            nama : pesanan.nama,
+            meja : pesanan.meja,
+            status: 'menunggu konfirmasi'
+        })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+        this.props.history.push({
+            pathname: '/pesanan',
+            id : pesanan.id
+        })
     }
 
     handleClose = () => {
@@ -47,7 +68,7 @@ class Checkoutpage extends React.Component{
 
     handleChangeNo = (e) => {
         this.setState({
-            no : e.target.value
+            meja : e.target.value
         })
     }
 
@@ -94,7 +115,7 @@ class Checkoutpage extends React.Component{
                                             </p>
                                         </Col>
                                     </Row>
-                                </ListGroup.Item>
+                            </ListGroup.Item>
                             {this.state.data.map((data, index) =>
                                 <ListGroup.Item key={index} style={{paddingLeft : 0}}>
                                     <Row>
@@ -120,7 +141,7 @@ class Checkoutpage extends React.Component{
                         handleShow = {this.handleShow}
                         handleClose = {this.handleClose}
                         show = {this.state.show}
-                        home = {this.gotoHome}
+                        home = {this.addPesanan}
                         />
                     <div>
                         <Button style={{width : '100%'}} variant="primary" onClick={this.handleShow}>Pesan Sekarang</Button>

@@ -4,6 +4,7 @@ import React from 'react';
 import Listmenu from './components/Listmenupage/Listmenu'
 import Checkoutpage from './components/Checkoutpage/Checkoutpage'
 import Homepage from './components/Homepage/Homepage'
+import Waitingpage from './components/Waitingpage/Waitingpage';
 import {Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from './firebase';
@@ -29,6 +30,11 @@ class App extends React.Component {
           <Route path="/checkout">
             <Container fluid style={{padding : 0}}>
               <Checkoutpage/>
+            </Container>
+          </Route>
+          <Route path="/pesanan">
+            <Container fluid style={{padding : 0}}>
+              <Waitingpage/>
             </Container>
           </Route>
           <Route path="/">
