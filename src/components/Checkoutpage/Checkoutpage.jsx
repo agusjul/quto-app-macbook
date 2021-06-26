@@ -72,10 +72,45 @@ class Checkoutpage extends React.Component{
         })
     }
 
+    formatRupiah = (money) => {
+        return new Intl.NumberFormat('id-ID',
+          { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
+        ).format(money);
+    }
+
+
+    totalHarga = () => {
+        if(this.state.data && this.state.data.length > 0){
+            let total = 0
+            this.state.data.map((datas, i)=> {
+                total += (datas.harga*datas.jumlah)
+            })
+            return (`${this.formatRupiah(total)}`)
+        }
+        else {
+            return ''
+        }
+    }
+
+    totalJumlah = () => {
+        if(this.state.data && this.state.data.length > 0){
+            let total = 0
+            this.state.data.map((datas, i)=> {
+                total += (datas.jumlah)
+            })
+            return (`${total}`)
+        }
+        else {
+            return ''
+        }
+    }
+
     render(){
         return(
             <div>
-                
+                {this.state.data.map((datas)=>(
+                    console.log(datas.harga)
+                ))}
                 <Prompt
                     when={this.state.callback}
                     message='Pesanan anda akan terhapus, apakah anda yakin melanjutkan ?'
@@ -101,7 +136,7 @@ class Checkoutpage extends React.Component{
                     </div>
                     <div>
                         <ListGroup variant="flush">
-                            <ListGroup.Item style={{paddingLeft : 0}}>
+                            <ListGroup.Item style={{paddingLeft : 0, fontSize : 14}}>
                                     <Row>
                                         <Col xs={6}>
                                             <p style={{fontWeight : 'bold'}}>Nama menu</p>
@@ -117,19 +152,19 @@ class Checkoutpage extends React.Component{
                                     </Row>
                             </ListGroup.Item>
                             {this.state.data.map((data, index) =>
-                                <ListGroup.Item key={index} style={{paddingLeft : 0}}>
+                                <ListGroup.Item key={index} style={{paddingLeft : 0, fontSize : 14}}>
                                     <Row>
                                         <Col xs={6}> {data.menu}</Col>
                                         <Col xs={3}>{data.jumlah}</Col>
-                                        <Col xs={3}>{(data.harga)}</Col>
+                                        <Col xs={3}>{this.formatRupiah(data.harga)}</Col>
                                     </Row>
                                 </ListGroup.Item>
                             )}
-                             <ListGroup.Item style={{paddingLeft : 0, fontWeight : 'bold'}}>
+                             <ListGroup.Item style={{paddingLeft : 0, fontWeight : 'bold', fontSize : 14}}>
                                     <Row>
                                         <Col xs={6}>Total</Col>
-                                        <Col xs={3}>2</Col>
-                                        <Col xs={3}>10000</Col>
+                                        <Col xs={3}>{this.totalJumlah()}</Col>
+                                        <Col xs={3}>{this.totalHarga()}</Col>
                                     </Row>
                                 </ListGroup.Item>
                         </ListGroup>

@@ -1,8 +1,47 @@
 import React from 'react'
-import {Navbar, Form, Col, Button, ListGroup, Row } from 'react-bootstrap'
+import {Navbar, Form, Col, Button, ListGroup, Row, Carousel } from 'react-bootstrap'
 import { withRouter } from "react-router";
+import QrReader from 'react-qr-reader'
+import ModalHomepage from './ModalHomepage';
+import Quto1 from '../../image/quto1.jpg'
+import Quto2 from '../../image/quto2.jpg'
+import Quto3 from '../../image/quto3.jpg'
 
 class Homepage extends React.Component{
+    state={
+        result : 'none',
+        showModal : false
+    }
+
+    handleScan = data => {
+        if (data) {
+          this.setState({
+            result: data,
+            showModal : false
+          })
+        this.props.history.push({
+            pathname: '/listmenu'
+        })
+        }
+    }
+    
+    handleError = err => {
+        console.error(err)
+    }
+
+    handleShow = () => {
+        this.setState({
+            showModal : true
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            showModal : false
+        })
+    }
+
+
     render(){
         return(
             <div>
@@ -13,9 +52,49 @@ class Homepage extends React.Component{
                     </Navbar>
                 </div>
                 <div style={{padding : 40}}>
-                    <div style={{marginBottom : 40}}>
-                        <p>Homepage</p>
+                    <div>
+                    <Carousel>
+                        <Carousel.Item interval={3000}>
+                            <img
+                            className="d-block w-100"
+                            src={Quto1}
+                            alt="First slide"
+                            />
+                        </Carousel.Item>
+                        <Carousel.Item interval={3000}>
+                            <img
+                            className="d-block w-100"
+                            src={Quto2}
+                            alt="Second slide"
+                            />
+                            {/* <Carousel.Caption>
+                            <h3>Second slide label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </Carousel.Caption> */}
+                        </Carousel.Item>
+                        <Carousel.Item interval={3000}>
+                            <img
+                            className="d-block w-100"
+                            src={Quto3}
+                            alt="Third slide"
+                            />
+                            {/* <Carousel.Caption>
+                            <h3>Third slide label</h3>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                            </Carousel.Caption> */}
+                        </Carousel.Item>
+                    </Carousel>
                     </div>
+                    <div style={{marginTop : 40}}>
+                        <ModalHomepage
+                            handleShow={this.handleShow}
+                            handleClose={this.handleClose}
+                            showModal={this.state.showModal}
+                            handleScan={this.handleScan}
+                            handleError={this.handleError}
+                        />
+                    </div>
+
                 </div>
             </div>
         )

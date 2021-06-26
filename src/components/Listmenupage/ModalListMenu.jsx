@@ -13,7 +13,7 @@ class ModalList extends React.Component {
                 show={this.props.tampil}
                 onHide={this.props.hide}
                 backdrop="static"
-                keyboard={false}a
+                keyboard={false}
                 >
                     <Modal.Header>
                         <Modal.Title>Tambah Pesanan</Modal.Title>

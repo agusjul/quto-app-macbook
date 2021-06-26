@@ -233,6 +233,7 @@ class Listmenu extends React.Component {
     render() {
         return(
             <div>
+            {console.log(this.state.menus)}
                 <div>
                     <Navbar bg="light" variant="light" style={{paddingLeft: 40}}>
                         <Navbar.Brand href="#home">Quto App</Navbar.Brand>
@@ -268,10 +269,10 @@ class Listmenu extends React.Component {
                             gantiJumlah = {this.editModalJumlahChange}
                             simpanEdit = {this.simpanEdit}
                         />
-                         <Button style={{width : '100%'}} variant="primary" onClick={this.gotoCheckout} >
+                         {/* <Button style={{width : '100%'}} variant="primary" onClick={this.gotoCheckout} >
                             Chekcout{`${this.totalHarga()}`}
-                        </Button>
-                        {this.checkoutBottom}
+                        </Button> */}
+                        {this.checkoutBottom()}
                     </div>
                 </div>
             </div>
