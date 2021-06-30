@@ -53,37 +53,29 @@ class Homepage extends React.Component{
                 </div>
                 <div style={{padding : 40}}>
                     <div>
-                    <Carousel>
-                        <Carousel.Item interval={3000}>
-                            <img
-                            className="d-block w-100"
-                            src={Quto1}
-                            alt="First slide"
-                            />
-                        </Carousel.Item>
-                        <Carousel.Item interval={3000}>
-                            <img
-                            className="d-block w-100"
-                            src={Quto2}
-                            alt="Second slide"
-                            />
-                            {/* <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </Carousel.Caption> */}
-                        </Carousel.Item>
-                        <Carousel.Item interval={3000}>
-                            <img
-                            className="d-block w-100"
-                            src={Quto3}
-                            alt="Third slide"
-                            />
-                            {/* <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                            </Carousel.Caption> */}
-                        </Carousel.Item>
-                    </Carousel>
+                        {/* <Carousel>
+                            <Carousel.Item interval={3000}>
+                                <img
+                                className="d-block w-100"
+                                src={Quto1}
+                                alt="First slide"
+                                />
+                            </Carousel.Item>
+                            <Carousel.Item interval={3000}>
+                                <img
+                                className="d-block w-100"
+                                src={Quto2}
+                                alt="Second slide"
+                                />
+                            </Carousel.Item>
+                            <Carousel.Item interval={3000}>
+                                <img
+                                className="d-block w-100"
+                                src={Quto3}
+                                alt="Third slide"
+                                />
+                            </Carousel.Item>
+                        </Carousel> */}
                     </div>
                     <div style={{marginTop : 40}}>
                         <ModalHomepage
