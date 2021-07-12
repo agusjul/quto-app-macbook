@@ -41,6 +41,12 @@ class Homepage extends React.Component{
         })
     }
 
+    toAdmin = () => {
+        this.props.history.push({
+            pathname : '/admin'
+        })
+    }
+
 
     render(){
         return(
@@ -53,7 +59,7 @@ class Homepage extends React.Component{
                 </div>
                 <div style={{padding : 40}}>
                     <div>
-                        {/* <Carousel>
+                        <Carousel>
                             <Carousel.Item interval={3000}>
                                 <img
                                 className="d-block w-100"
@@ -75,7 +81,7 @@ class Homepage extends React.Component{
                                 alt="Third slide"
                                 />
                             </Carousel.Item>
-                        </Carousel> */}
+                        </Carousel>
                     </div>
                     <div style={{marginTop : 40}}>
                         <ModalHomepage
@@ -85,6 +91,9 @@ class Homepage extends React.Component{
                             handleScan={this.handleScan}
                             handleError={this.handleError}
                         />
+                    </div>
+                    <div style={{marginTop : 200}}>
+                        <Button onClick={()=>this.toAdmin()}>Admin</Button>
                     </div>
 
                 </div>
